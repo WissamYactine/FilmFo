@@ -3,7 +3,6 @@ import { Grid, CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 import Movie from './Movie/Movie.js';
-import MovieDetails from './MovieDetails/MovieDetails.js'
 import useStyles from './styles.js'
 
 const Movies = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, AppBar, Typography, Grow, Grid, Button } from '@material-ui/core';
+import { Container, AppBar, Typography, Button } from '@material-ui/core';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TvIcon from '@mui/icons-material/Tv';
 

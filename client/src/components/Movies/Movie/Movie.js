@@ -1,11 +1,11 @@
 import React from 'react';
-import { Container, Card, CardActions, CardContent, CardMedia, Button, IconButton, Typography, Grid, createSvgIcon, SvgIcon, Popover } from '@material-ui/core';
+import { Container, Card, /*CardActions, CardContent,*/ CardMedia, Button, IconButton, Typography, /*Grid, createSvgIcon, SvgIcon,*/ Popover } from '@material-ui/core';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarsIcon from '@mui/icons-material/Stars';
 import CloseIcon from '@mui/icons-material/Close';
 import useStyles from './styles';
-import useEffect from 'react';
+// import useEffect from 'react';
 
 // import { useDispatch } from 'react-redux';
 

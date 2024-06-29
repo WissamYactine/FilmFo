@@ -16,6 +16,7 @@ const movieSchema = mongoose.Schema({
     "actors": [String],
     "imdbRating": Number,
     "posterurl": String,
+    "favorites": [String],
 });
 
 const MoviesFormat = mongoose.model("Movie", movieSchema);

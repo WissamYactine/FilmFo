@@ -11,7 +11,7 @@ const Movies = () => {
 
     console.log(movies);
     return (
-        !movies.length ? <CircularProgress /> : /*( movies.length === 1 ? <MovieDetails movie={movies[0]}/> :*/ (
+        !movies.length ? <CircularProgress /> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
                 {movies.map((movie) => (
                     <Grid key={movie._id} item xs={12} sm={4}>

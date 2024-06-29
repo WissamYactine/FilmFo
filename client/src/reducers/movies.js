@@ -1,4 +1,4 @@
-import { FETCH_ALL, FETCH_ID } from "../constants/actionTypes";
+import { FETCH_ALL, FETCH_ID, ADD_FAVORITE } from "../constants/actionTypes";
 
 // movies is the state.
 const reducer = (movies = [], action) => {
@@ -8,6 +8,9 @@ const reducer = (movies = [], action) => {
             
         case FETCH_ID:
             return action.payload;
+
+        case ADD_FAVORITE:
+            return movies.map((movie) => (movie._id === action.payload._id ? action.payload: movie));
 
         default:
             return movies;

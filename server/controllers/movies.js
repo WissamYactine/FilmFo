@@ -1,4 +1,5 @@
 import MoviesFormat from "../models/moviesFormat.js";
+import mongoose from 'mongoose';
 
 // Find all movies.
 export const getMovies = async (req, res) => {
@@ -14,10 +15,10 @@ export const getMovies = async (req, res) => {
 
 // Find a movie by its ID (Not the ID set by Mongoose).
 export const getMovieById = async (req, res) => {
-    try {
-        // Get movie ID from request parameters
-        const { id } = req.params;
+    // Get movie ID from request parameters
+    const { id } = req.params;
 
+    try {
         // Set id from req.params in new variable for more 
         // clarity in the query in find method. 
         const paramId = id;
@@ -32,27 +33,32 @@ export const getMovieById = async (req, res) => {
     }
 }
 
-// Add movie to favorite
-// export const addToFavorite = async (req, res) => {
-//     try {
-//         // Get movie ID from request parameters.
-//         // Set id from req.params in new variable paramId for more clarity in the query in find method.
-//         const { id: paramId } = req.params;
+// ADD TO FAVORITES
+// Adding user ID in the movie favorite list
+export const addToFavorites = async (req, res) => {
+    const movieId = req.body.movieId;
 
-//         // Find movie by ID.
-//         const movie = await MoviesFormat.find({id: paramId});
+    if(!req.userId) return res.json({ message: 'Unauthenticated' });
 
-//         // Check if the movie exist. If not, send error.
-//         if(movie.length == 0) {
-//             return res.status(404).json({ message: "Movie not found!" });
-//         }
+    if (!mongoose.Types.ObjectId.isValid(movieId)) return res.status(404).send(`No movie with id: ${movieId}`);
 
+    const movie = await MoviesFormat.findById(movieId);
+    
+    const index = movie.favorites.findIndex((id) => id === req.userId);
 
-        
-//     } catch (error) {
-        
-//     }
-// }
+    if(index === -1) {
+        movie.favorites.push(req.userId);
+    } else {
+        movie.favorites = movie.favorites.filter((id) => id !== req.userId);
+    }
+
+    // TO EMPTY FAVORITE LIST (TESTING PURPOSES) 
+    // movie.favorites = [];
+
+    const updatedMovie = await MoviesFormat.findByIdAndUpdate(movieId, movie);
+
+    res.json(updatedMovie);
+}
 
 
 

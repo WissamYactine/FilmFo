@@ -1,4 +1,4 @@
-import { FETCH_ALL, FETCH_ID } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_ID, ADD_FAVORITE } from '../constants/actionTypes';
 import * as api from '../api';
 
 export const getMovies = () => async (dispatch) => {
@@ -21,3 +21,13 @@ export const getMovieById = (id) => async (dispatch) => {
         console.log(error.message);
     }
 }
+
+export const addFavorite = (movieId) => async (dispatch) => {
+    try {
+        const { data } = await api.addToFavorite(movieId);
+        
+        dispatch({ type: ADD_FAVORITE, payload: data });
+    } catch (error) {
+        console.log(error);
+    }
+};

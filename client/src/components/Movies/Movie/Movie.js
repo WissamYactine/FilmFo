@@ -1,21 +1,28 @@
-import React from 'react';
+// import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Card, /*CardActions, CardContent,*/ CardMedia, Button, IconButton, Typography, /*Grid, createSvgIcon, SvgIcon,*/ Popover } from '@material-ui/core';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarsIcon from '@mui/icons-material/Stars';
 import CloseIcon from '@mui/icons-material/Close';
 import useStyles from './styles';
 // import useEffect from 'react';
 
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import MovieDetails from '../MovieDetails/MovieDetails';
 
-// import { getMovieById } from '../../../actions/movies';
+
+import { addFavorite } from '../../../actions/movies';
+import { getMovies } from '../../../actions/movies.js';
 
 const Movie = ({ movie }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [open, setPopOpen] = React.useState(false);
+    const user = JSON.parse(localStorage.getItem('profile'));
+    // const [favorite, setFavorite] = React.useState(false);
+
 
     const handleClick = (e) => {
         if(open) {
@@ -38,7 +45,20 @@ const Movie = ({ movie }) => {
 
     const handleChildElementClick = (e) => {
         e.stopPropagation();
-        console.log("hey");
+        dispatch(addFavorite({ movieId: movie._id }));
+    }
+
+    const Favorite = () => {
+        if(movie.favorites.length > 0) {
+            return movie.favorites.find((like) => like === (user?.result?.jti || user?.result?._id))
+            ? (
+                <><FavoriteIcon fontSize='large' /></>
+            ) : (
+                <><FavoriteBorderIcon fontSize='large' /></>
+            );
+        }
+
+        return <><FavoriteBorderIcon fontSize='large' /></>
     }
 
     return (
@@ -55,7 +75,7 @@ const Movie = ({ movie }) => {
                 </div>
                 <div className={classes.overlay2}>
                     <Button  style={{ color: 'yellow' }} size="small" onClick={(e) => handleChildElementClick(e)}>
-                        <FavoriteBorderIcon fontSize='large' />
+                        <Favorite />
                     </Button>
                 </div>
             </Card>

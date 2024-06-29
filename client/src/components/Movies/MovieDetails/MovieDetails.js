@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Container, CardContent, Button, Typography } from '@material-ui/core';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarsIcon from '@mui/icons-material/Stars';
 import Box from '@mui/material/Box';
 
@@ -26,11 +26,11 @@ const MovieDetails = ({ movie }) => {
                             <StarsIcon sx={{ fontSize: 30 }}></StarsIcon>
                             <Typography variant="h6">&nbsp; {movie.imdbRating}/10</Typography>
                         </div>
-                        <Typography variant='h8'>Cast: <br/> {movie.actors[0]} <br/> {movie.actors[1]} <br/> {movie.actors[2]}</Typography>
+                        <Typography variant='body1'>Cast: <br/> {movie.actors[0]} <br/> {movie.actors[1]} <br/> {movie.actors[2]}</Typography>
                         <Container className={classes.genre}>
-                            <Typography variant='h8'>Genre:</Typography>
+                            <Typography variant='body1'>Genre:</Typography>
                             {movie.genres.map((genre) => (
-                                <Box className={classes.box} sx={{ border: '2px solid grey' }}>{genre}</Box>
+                                <Box className={classes.box} sx={{ border: '2px solid grey' }} key={genre} >{genre}</Box>
                             ))}
                         </Container>
                     </Container>

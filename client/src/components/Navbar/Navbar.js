@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Typography, Button, Toolbar, Avatar } from '@material-ui/core';
+import { AppBar, Typography, Button, Toolbar, Avatar, Popover } from '@material-ui/core';
 import useStyles from './styles.js';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import TvIcon from '@mui/icons-material/Tv';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -38,28 +38,38 @@ const Navbar = () => {
         dispatch({ type: 'LOGOUT' });
         navigate('/');
         setUser(null);
+        dispatch(getMovies());
     }
     
     return(
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Button style={{color: 'white'}} onClick={() => dispatch(getMovies())}>
+                <Button style={{color: 'white'}} component={Link} to="/" onClick={() => dispatch(getMovies())}>
                     <TvIcon sx={{ fontSize: 50}} />
-                    <Typography  component={Link} to="/" className={classes.heading} variant="h3" align="center">Movies</Typography>
-                </Button>
-                <Button style={{color: 'yellow'}} size="small" onClick={() => {}}>
-                    <FavoriteBorderIcon fontSize='large' />
+                    <Typography className={classes.heading} variant="h3" align="center">Movies</Typography>
                 </Button>
             </div>
             <Toolbar className={classes.toolbar}>
             {user ? (
                 <div className={classes.profile}>
+                    <Button className={classes.userName} style={{color: 'yellow'}} size="small" component={Link} to="/myfavorites" onClick={() => {}}>
+                        <FavoriteIcon fontSize='medium' />
+                        <Typography variant="h6">My Favorites</Typography>
+                        <FavoriteIcon fontSize='medium' />
+                    </Button>
                     <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>
                     <Typography className={classes.userName} variant='h6'>{user.result.name}</Typography>
                     <Button variant='contained' className={classes.logout} color='secondary' onClick={logout}>Logout</Button>
                 </div>
             ) : (
-                <Button component={Link} to="/auth" variant='contained' color='primary'>Sign In</Button>
+                <div className={classes.profile}>
+                    <div className={classes.userName}>
+                        <FavoriteIcon fontSize='medium' />
+                        <Typography style={{color: 'yellow'}} variant="h6">Sign in to see and add to favorites</Typography>
+                        <FavoriteIcon fontSize='medium' />
+                    </div>
+                    <Button component={Link} to="/auth" variant='contained' color='primary'>Sign In</Button>
+                </div>
             )}
             </Toolbar>
         </AppBar>

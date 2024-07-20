@@ -7,9 +7,10 @@ const API = axios.create({ baseURL: "http://localhost:5000" });
 API.interceptors.request.use((req) => {
     if(JSON.parse(localStorage.getItem('profile'))?.token) {
         req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
-    } else if(JSON.parse(localStorage.getItem('profile'))?.result){
-        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).result.jti}`;
-    }
+    } 
+    // else if(JSON.parse(localStorage.getItem('profile'))?.result){
+    //     req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).result.sub}`;
+    // }
 
     return req;
 });

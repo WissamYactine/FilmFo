@@ -11,20 +11,18 @@ const auth = async (req, res, next) => {
     try {
         const token = req.headers.authorization.split(" ")[1];
         // SHOULD FIND A MORE RELIABLE WAY TO CHECK CUSTOMAUTH!
-        const isCustomAuth = token.length > 50;
-        // console.log(req.headers.authorization);
+        const isCustomAuth = token.length < 250;
 
-        // let decodedData;
+        let decodedData;
 
         if(token && isCustomAuth) {
-            const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+            decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
             req.userId = decodedData?.id;
         } else {
-            // decodedData = jwt.decode(token);
-            // console.log(token);
+            decodedData = jwt.decode(token);
 
-            req.userId = token;
+            req.userId = decodedData?.sub;
         }
 
         next();

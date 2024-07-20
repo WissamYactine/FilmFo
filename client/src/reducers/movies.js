@@ -10,7 +10,7 @@ const reducer = (movies = [], action) => {
             return action.payload;
 
         case ADD_FAVORITE:
-            return movies.map((movie) => (movie._id === action.payload._id ? action.payload: movie));
+            return movies.map((movie) => (movie._id === action.payload._id ? action.payload : movie));
 
         default:
             return movies;

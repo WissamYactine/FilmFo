@@ -45,17 +45,19 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '400px',
+    width: 'fit-content',
   },
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
+    width: 'fit-content',
   },
   userName: {
     display: 'flex',
     alignItems: 'center',
     color: 'white',
+    marginLeft: '30px',
+    marginRight: '30px',
   },
   brandContainer: {
     display: 'flex',

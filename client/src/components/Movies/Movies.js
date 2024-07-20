@@ -9,7 +9,6 @@ const Movies = () => {
     const movies = useSelector((state) => state.movies);
     const classes = useStyles();
 
-    console.log(movies);
     return (
         !movies.length ? <CircularProgress /> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
@@ -20,8 +19,7 @@ const Movies = () => {
                 ))}
             </Grid>
         ))
-    // )
-    ;
+         ;
 }
 
 export default Movies;

@@ -1,12 +1,11 @@
-// import React from 'react';
-import React, { useEffect, useState } from 'react';
-import { Container, Card, /*CardActions, CardContent,*/ CardMedia, Button, IconButton, Typography, /*Grid, createSvgIcon, SvgIcon,*/ Popover } from '@material-ui/core';
+import React from 'react';
+import { Container, Card, CardMedia, Button, IconButton, Typography, /*Grid, createSvgIcon, SvgIcon,*/ Popover } from '@material-ui/core';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarsIcon from '@mui/icons-material/Stars';
 import CloseIcon from '@mui/icons-material/Close';
 import useStyles from './styles';
-// import useEffect from 'react';
+
 
 import { useDispatch } from 'react-redux';
 
@@ -14,14 +13,12 @@ import MovieDetails from '../MovieDetails/MovieDetails';
 
 
 import { addFavorite } from '../../../actions/movies';
-import { getMovies } from '../../../actions/movies.js';
 
 const Movie = ({ movie }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setPopOpen] = React.useState(false);
     const user = JSON.parse(localStorage.getItem('profile'));
-    // const [favorite, setFavorite] = React.useState(false);
 
 
     const handleClick = (e) => {
@@ -49,16 +46,18 @@ const Movie = ({ movie }) => {
     }
 
     const Favorite = () => {
-        if(movie.favorites.length > 0) {
-            return movie.favorites.find((like) => like === (user?.result?.jti || user?.result?._id))
+        if(user) {
+            return movie.favorites.find((like) => like === (user?.result?.sub || user?.result?._id))
             ? (
-                <><FavoriteIcon fontSize='large' /></>
+                <Button className={classes.overlay2} style={{ color: 'yellow' }} size="small" onClick={(e) => handleChildElementClick(e)}>
+                    <FavoriteIcon fontSize='large' />
+                </Button>
             ) : (
-                <><FavoriteBorderIcon fontSize='large' /></>
+                <Button className={classes.overlay2} style={{ color: 'yellow' }} size="small" onClick={(e) => handleChildElementClick(e)}>
+                    <FavoriteBorderIcon fontSize='large' />
+                </Button>
             );
         }
-
-        return <><FavoriteBorderIcon fontSize='large' /></>
     }
 
     return (
@@ -73,11 +72,7 @@ const Movie = ({ movie }) => {
                         <Typography variant="h6">&nbsp; {movie.imdbRating}/10</Typography>
                     </div>         
                 </div>
-                <div className={classes.overlay2}>
-                    <Button  style={{ color: 'yellow' }} size="small" onClick={(e) => handleChildElementClick(e)}>
-                        <Favorite />
-                    </Button>
-                </div>
+                <Favorite />
             </Card>
             <Popover
                 id={id}
@@ -94,6 +89,7 @@ const Movie = ({ movie }) => {
                         </IconButton>
                     </Container>
                     <MovieDetails movie={movie} />
+                    <Favorite />
                 </Container>
             </Popover>
         </Container>

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Icon from './Icon';
+// import Icon from './Icon';
 import useStyles from './styles';
 import Input from './Input';
 import { signin, signup } from '../../actions/auth';
@@ -46,10 +46,9 @@ const Auth = () => {
     // MIGHT NEED TO ADD TOKEN IF JWT.DECODE WORKS ON MIDDLEWARE AND API.INDEX INTERCEPTOR IS MODIFIED
     const googleSuccess = async (res) => {
         const result = jwtDecode(res?.credential);
-        // const token = result.sub;
 
         try {
-            dispatch({type: 'AUTH', data: { result } });
+            dispatch({type: 'AUTH', data: { result, token: res.credential } });
             navigate('/')
         } catch (error) {
             console.log(error);

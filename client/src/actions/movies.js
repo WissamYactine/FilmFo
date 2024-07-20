@@ -26,7 +26,7 @@ export const addFavorite = (movieId) => async (dispatch) => {
     try {
         const { data } = await api.addToFavorite(movieId);
         
-        dispatch({ type: ADD_FAVORITE, payload: data });
+        return dispatch({ type: ADD_FAVORITE, payload: data });
     } catch (error) {
         console.log(error);
     }

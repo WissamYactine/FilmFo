@@ -34,6 +34,12 @@ export default makeStyles({
     right: '20px',
     color: 'white',
   },
+  overlay3: {
+    position: 'absolute',
+    bottom: '40px',
+    right: '40px',
+    color: 'white',
+  },
   grid: {
     display: 'flex',
   },

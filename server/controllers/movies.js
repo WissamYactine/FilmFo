@@ -55,7 +55,7 @@ export const addToFavorites = async (req, res) => {
     // TO EMPTY FAVORITE LIST (TESTING PURPOSES) 
     // movie.favorites = [];
 
-    const updatedMovie = await MoviesFormat.findByIdAndUpdate(movieId, movie);
+    const updatedMovie = await MoviesFormat.findByIdAndUpdate(movieId, movie, {new: true});
 
     res.json(updatedMovie);
 }

@@ -1,5 +1,6 @@
-import jwt, { decode } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 // import { jwtDecode } from 'jwt-decode';
+
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -11,7 +12,7 @@ const auth = async (req, res, next) => {
     try {
         const token = req.headers.authorization.split(" ")[1];
         // SHOULD FIND A MORE RELIABLE WAY TO CHECK CUSTOMAUTH!
-        const isCustomAuth = token.length < 250;
+        const isCustomAuth = token.length < 500;
 
         let decodedData;
 

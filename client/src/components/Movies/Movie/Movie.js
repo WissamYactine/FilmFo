@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card, CardMedia, Button, IconButton, Typography, /*Grid, createSvgIcon, SvgIcon,*/ Popover } from '@material-ui/core';
+import { Container, Card, CardMedia, Button, IconButton, Typography, Popover } from '@material-ui/core';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarsIcon from '@mui/icons-material/Stars';
@@ -8,42 +8,14 @@ import useStyles from './styles';
 
 
 import { useDispatch } from 'react-redux';
-
+import { addFavorite } from '../../../actions/movies';
 import MovieDetails from '../MovieDetails/MovieDetails';
 
-
-import { addFavorite } from '../../../actions/movies';
-
 const Movie = ({ movie }) => {
-    const classes = useStyles();
     const dispatch = useDispatch();
+    const classes = useStyles();
     const [open, setPopOpen] = React.useState(false);
     const user = JSON.parse(localStorage.getItem('profile'));
-
-
-    const handleClick = (e) => {
-        if(open) {
-            const popoverElement = document.querySelector(".popoverCard");
-            if(!popoverElement.contains(e.target)) {
-                setPopOpen(false);
-            }
-        }
-    }
-
-    const handleKeyDown = (e) => {
-        if(open) {
-            if(e.key === 'Escape') {
-                setPopOpen(false);
-            }
-        }
-    }
-
-    const id = open ? 'simple-popover' : undefined;
-
-    const handleChildElementClick = (e) => {
-        e.stopPropagation();
-        dispatch(addFavorite({ movieId: movie._id }));
-    }
 
     const Favorite = () => {
         if(user) {
@@ -58,7 +30,29 @@ const Movie = ({ movie }) => {
                 </Button>
             );
         }
-    }
+    };
+
+    const handleChildElementClick = (e) => {
+        e.stopPropagation();
+        dispatch(addFavorite({ movieId: movie._id }));
+    };
+    
+    const handleClick = (e) => {
+        if(open) {
+            const popoverElement = document.querySelector(".popoverCard");
+            if(!popoverElement.contains(e.target)) {
+                setPopOpen(false);
+            }
+        }
+    };
+    
+    const handleKeyDown = (e) => {
+        if(open) {
+            if(e.key === 'Escape') {
+                setPopOpen(false);
+            }
+        }
+    };
 
     return (
         <Container onClick={handleClick} onKeyUp={handleKeyDown}>
@@ -75,7 +69,7 @@ const Movie = ({ movie }) => {
                 <Favorite />
             </Card>
             <Popover
-                id={id}
+                id={'simple-popover'}
                 open={open}
                 anchorReference={'none'}
                 classes={{

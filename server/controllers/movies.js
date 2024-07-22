@@ -13,26 +13,6 @@ export const getMovies = async (req, res) => {
     }
 };
 
-// Find a movie by its ID (Not the ID set by Mongoose).
-export const getMovieById = async (req, res) => {
-    // Get movie ID from request parameters
-    const { id } = req.params;
-
-    try {
-        // Set id from req.params in new variable for more 
-        // clarity in the query in find method. 
-        const paramId = id;
-
-        // Find movie in database by ID.
-        const movie = await MoviesFormat.find({id: paramId});
-
-        // Send movie infos to client.
-        res.status(200).json(movie);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
-
 // ADD TO FAVORITES
 // Adding user ID in the movie favorite list
 export const addToFavorites = async (req, res) => {
@@ -51,9 +31,6 @@ export const addToFavorites = async (req, res) => {
     } else {
         movie.favorites = movie.favorites.filter((id) => id !== req.userId);
     }
-
-    // TO EMPTY FAVORITE LIST (TESTING PURPOSES) 
-    // movie.favorites = [];
 
     const updatedMovie = await MoviesFormat.findByIdAndUpdate(movieId, movie, {new: true});
 

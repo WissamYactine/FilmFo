@@ -3,11 +3,11 @@ import { Grid, CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 import Movie from './Movie/Movie.js';
-import useStyles from './styles.js'
+import useStyles from './styles.js';
 
 const Movies = () => {
-    const movies = useSelector((state) => state.movies);
     const classes = useStyles();
+    const movies = useSelector((state) => state.movies);
 
     return (
         !movies.length ? <CircularProgress /> : (

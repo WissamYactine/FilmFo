@@ -1,58 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AppBar, Typography, Button, Toolbar, Avatar, Popover } from '@material-ui/core';
-import useStyles from './styles.js';
+import { AppBar, Typography, Button, Toolbar, Avatar } from '@material-ui/core';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
+
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TvIcon from '@mui/icons-material/Tv';
-import { useNavigate, useLocation } from 'react-router-dom';
+import useStyles from './styles.js';
 
-import { jwtDecode } from 'jwt-decode';
-import { useDispatch } from 'react-redux';
-import { getMovies } from '../../actions/movies.js';
 
-const Navbar = () => {
-    const classes = useStyles();
+const Navbar = ({ setUser }) => {
+    const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const location = useLocation();
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const navigate = useNavigate();
+    const classes = useStyles();
+    
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' });
+
+        navigate('/');
+        
+        setUser(null);
+    };
 
     useEffect(() => {
-        dispatch(getMovies());
-    }, [dispatch]);
-    
-    useEffect(() => {
-        // user.token is for jwtLogin || user.result is for googleLogin
-        if(user?.result?.sub) {
-            const tokenExp = user.result?.exp;  
-            if(tokenExp * 1000 < new Date().getTime()) logout();
-        } else if(user?.result?._id) {
-            const decodedToken = jwtDecode(user?.token);
+        const token = user?.token;
+
+        if(token) {
+            const decodedToken = jwtDecode(token);
+
             if(decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
             
         setUser(JSON.parse(localStorage.getItem('profile')));
-    }, [location])
+    }, [location]);
 
-    const logout = () => {
-        dispatch({ type: 'LOGOUT' });
-        navigate('/');
-        setUser(null);
-        dispatch(getMovies());
-    }
     
     return(
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Button style={{color: 'white'}} component={Link} to="/" onClick={() => dispatch(getMovies())}>
+                <Button style={{color: 'white'}} component={Link} to="/" >
                     <TvIcon sx={{ fontSize: 50}} />
                     <Typography className={classes.heading} variant="h3" align="center">Movies</Typography>
                 </Button>
             </div>
             <Toolbar className={classes.toolbar}>
-            {user ? (
+            {user?.result ? (
                 <div className={classes.profile}>
-                    <Button className={classes.userName} style={{color: 'yellow'}} size="small" component={Link} to="/myfavorites" onClick={() => {}}>
+                    <Button className={classes.userName} style={{color: 'yellow'}} size="small" component={Link} to="/myfavorites">
                         <FavoriteIcon fontSize='medium' />
                         <Typography variant="h6">My Favorites</Typography>
                         <FavoriteIcon fontSize='medium' />

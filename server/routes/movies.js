@@ -1,5 +1,6 @@
 import express from 'express';
-import { getMovies, createMovie, addToFavorites, createMultipleMovies, getMovieById, updateMovie, deleteMovie } from '../controllers/movies.js';
+
+import { getMovies, createMovie, addToFavorites, createMultipleMovies, updateMovie, deleteMovie } from '../controllers/movies.js';
 
 import auth from '../middleware/auth.js';
 const router = express.Router();
@@ -7,23 +8,8 @@ const router = express.Router();
 // Get all movies.
 router.get("/", getMovies);
 
-// Get movie by ID.
-router.get("/:id", getMovieById);
-
-// IN PROGRESS
+// Add movie to favorite.
 router.patch('/addFavorite', auth, addToFavorites);
-
-
-
-
-// IN PROGRESS 
-
-// Filter movie by favorites
-// router.patch("/favorites", auth, addToFavorite);
-
-
-
-// IN PROGRESS ^^^^^^
 
 
 
@@ -42,7 +28,7 @@ router.patch('/addFavorite', auth, addToFavorites);
 // The following POST methods are used by admin to add movies to database.
 // Users will not have the posibility to add to movie database. 
 
-// Create one new movie to database: Only used by me not users.
+// Create one new movie to database: Only used by admin not users.
 router.post("/", createMovie);
 
 // Create multiple new movies to database.

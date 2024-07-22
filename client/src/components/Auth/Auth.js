@@ -1,29 +1,29 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { signin, signup } from '../../actions/auth';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-// import Icon from './Icon';
 import useStyles from './styles';
 import Input from './Input';
-import { signin, signup } from '../../actions/auth';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
 const Auth = () => {
-    const classes = useStyles();
-    const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState(initialState);
     const [isSignup, setIsSignUp] = useState(false);
-    const [formData, setFromData] = useState(initialState);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
+    const classes = useStyles();
+    
+    const [showPassword, setShowPassword] = useState(false);
+    const handleShowPassword = () => setShowPassword(!showPassword);
 
     const switchMode = () => {
+        setFormData(initialState);
         setIsSignUp((prevIsSignUp) => !prevIsSignUp);
         setShowPassword(false);
     };
@@ -37,30 +37,24 @@ const Auth = () => {
             dispatch(signin(formData, navigate))
         }
     };
-
-    const handleChange = (e) => {
-        setFromData({...formData, [e.target.name]: e.target.value});
-    };
-
-
-    // MIGHT NEED TO ADD TOKEN IF JWT.DECODE WORKS ON MIDDLEWARE AND API.INDEX INTERCEPTOR IS MODIFIED
+    
     const googleSuccess = async (res) => {
         const result = jwtDecode(res?.credential);
-
+        
         try {
-            dispatch({type: 'AUTH', data: { result, token: res.credential } });
+            dispatch({type: 'AUTH', data: { result, token: res.credential }});
+            
             navigate('/')
         } catch (error) {
             console.log(error);
         }
     };
-
-    const googleFailure = (error) => {
-        console.log(error);
-        console.log("Google Sign In was unsuccessful. Try Again Later");
-    };
     
-  return (
+    const googleFailure = () => alert("Google Sign In was unsuccessful. Try Again Later");
+    
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    return (
     <Container component='main' maxWidth='xs'>
         <Paper className={classes.paper} elevation={3}>
             <Avatar className={classes.avatar}>

@@ -76,7 +76,7 @@ const Movie = ({ movie }) => {
                     root: classes.popoverRoot,
                     }}
             >
-                <Container className='popoverCard' style={{ backgroundColor: '#000050' }}>
+                <Container className='popoverCard' style={{ backgroundColor: '#191919' }}>
                     <Container className={classes.closePop}>
                         <IconButton style={{ color: 'white', size: 'medium'}} onClick={() => setPopOpen(false)}>
                             <CloseIcon fontSize='large' ></CloseIcon>

@@ -16,7 +16,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     borderRadius: '15px',
     color: 'white',
-    backgroundColor: '#000050',
+    backgroundColor: '#191919',
   },
   title: {
     padding: '0 16px',

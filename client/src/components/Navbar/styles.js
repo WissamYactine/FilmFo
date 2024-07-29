@@ -32,7 +32,8 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
-    backgroundColor: '#000022',
+    // backgroundColor: '#000022',
+    backgroundColor: '#161616',
   },
   heading: {
     color: 'white',

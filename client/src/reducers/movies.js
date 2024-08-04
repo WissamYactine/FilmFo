@@ -1,9 +1,12 @@
-import { FETCH_ALL, FETCH_ID, ADD_FAVORITE } from "../constants/actionTypes";
+import { FETCH_ALL, FETCH_BY_SEARCH, ADD_FAVORITE } from "../constants/actionTypes";
 
 // movies is the state.
 const reducer = (movies = [], action) => {
     switch (action.type) {
         case FETCH_ALL:
+            return action.payload;
+        
+        case FETCH_BY_SEARCH:
             return action.payload;
 
         case ADD_FAVORITE:

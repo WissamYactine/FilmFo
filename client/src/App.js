@@ -25,6 +25,7 @@ const App = () => {
                 <Routes>
                     <Route path='/' exact element={<Navigate to="/movies" />} />
                     <Route path='/movies' exact element={<Home />} />
+                    <Route path="/movies/search" exact element={<Home />} />
                     <Route path='/auth' exact element={(!user) ? <Auth /> : <Navigate to="/movies" />} />
                     <Route path='/myfavorites' exact element={<Favorites />} />
                 </Routes>

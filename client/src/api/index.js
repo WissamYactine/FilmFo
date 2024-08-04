@@ -11,6 +11,7 @@ API.interceptors.request.use((req) => {
 });
 
 export const fetchMovies = () => API.get('/movies');
+export const fetchMoviesBySearch = (searchQuery) => API.get(`/movies/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
 export const addToFavorite = (movieId) => API.patch('/movies/addFavorite', movieId);
 
 export const signIn = (formData) => API.post('/user/signin', formData);

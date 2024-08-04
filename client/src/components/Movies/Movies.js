@@ -8,12 +8,12 @@ import useStyles from './styles.js';
 const Movies = () => {
     const classes = useStyles();
     const movies = useSelector((state) => state.movies);
-
+    console.log(movies);
     return (
         !movies.length ? <CircularProgress /> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
                 {movies.map((movie) => (
-                    <Grid key={movie._id} item xs={12} sm={4}>
+                    <Grid key={movie._id} item xs={12} sm={12} md={6} lg={4}>
                         <Movie movie={movie} />
                     </Grid>
                 ))}

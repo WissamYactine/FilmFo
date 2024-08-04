@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
+
+import { getMoviesBySearch } from '../../actions/movies.js';
 
 import Movies from '../Movies/Movies.js';
 import Pagination from '../Pagination/Pagination.jsx';
@@ -14,10 +17,31 @@ function useQuery() {
 const Home = () => {
     const classes = useStyles();
     const query = useQuery();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const page = query.get('page') || 1;
     const searchQuery = query.get('searchQuery');
+    const [search, setSearch] = useState('');
+    const [tags, setTags] = useState([]);
 
+    const searchMovie = () => {
+        if(search.trim() || tags) {
+            dispatch(getMoviesBySearch({ search, tags: tags.join(',') }))
+            navigate(`/movies/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+        } else {
+            navigate('/');
+        }
+    }
+
+    const handleKeyDown = (e) => {
+        if(e.keyCode === 13) {
+            searchMovie();
+        }
+    }
+
+    const handleAdd = (tag) => setTags([...tags, tag]);
+
+    const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
 
     return (
         <Grow in>
@@ -35,10 +59,22 @@ const Home = () => {
                                 name="search" 
                                 variant="outlined" 
                                 label="Search Movies"
+                                onKeyDown={handleKeyDown}
                                 fullWidth
-                                value=""
-                                onChange={() => {}}   
+                                value={search}
+                                onChange={(e) => {setSearch(e.target.value)}}   
                                 />
+                            </AppBar>
+                            <AppBar className={classes.appBarSearch} position="static" color="inherit">
+                                <ChipInput 
+                                    style={{ margin: '10px 0' }}
+                                    value={tags}
+                                    onAdd={handleAdd}
+                                    onDelete={handleDelete}
+                                    label='Categories'
+                                    variant='outlined'
+                                />
+                                <Button onClick={searchMovie} className={classes.searchButton} color='primary' variant='contained'>Search</Button>
                             </AppBar>
                         </Grid>
                 </Grid>

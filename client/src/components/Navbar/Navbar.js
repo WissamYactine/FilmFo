@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TvIcon from '@mui/icons-material/Tv';
 import useStyles from './styles.js';
+import { getMovies } from '../../actions/movies.js';
 
 
 const Navbar = ({ setUser }) => {
@@ -22,6 +23,12 @@ const Navbar = ({ setUser }) => {
         navigate('/');
         
         setUser(null);
+    };
+    
+    const refreshSearch = () => {
+        dispatch(getMovies());
+
+        navigate('/');
     };
 
     useEffect(() => {
@@ -40,7 +47,7 @@ const Navbar = ({ setUser }) => {
     return(
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Button style={{color: 'white'}} component={Link} to="/" >
+                <Button style={{color: 'white'}} onClick={refreshSearch}>
                     <TvIcon sx={{ fontSize: 50}} />
                     <Typography className={classes.heading} variant="h3" align="center">Movies</Typography>
                 </Button>

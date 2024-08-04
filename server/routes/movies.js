@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getMovies, createMovie, addToFavorites, createMultipleMovies, updateMovie, deleteMovie } from '../controllers/movies.js';
+import { getMovies, getMoviesBySearch, createMovie, addToFavorites, createMultipleMovies, updateMovie, deleteMovie } from '../controllers/movies.js';
 
 import auth from '../middleware/auth.js';
 const router = express.Router();
@@ -8,8 +8,11 @@ const router = express.Router();
 // Get all movies.
 router.get("/", getMovies);
 
+// Fetch movies by search.
+router.get("/search", getMoviesBySearch)
+
 // Add movie to favorite.
-router.patch('/addFavorite', auth, addToFavorites);
+router.patch("/addFavorite", auth, addToFavorites);
 
 
 

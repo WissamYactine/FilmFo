@@ -4,18 +4,20 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
 
+import { getMoviesByFavorite } from '../../actions/movies.js';
+
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import TvIcon from '@mui/icons-material/Tv';
 import useStyles from './styles.js';
-import { getMovies } from '../../actions/movies.js';
 
 
-const Navbar = ({ setUser }) => {
-    const user = JSON.parse(localStorage.getItem('profile'));
+const Navbar = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const classes = useStyles();
+
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     
     const logout = () => {
         dispatch({ type: 'LOGOUT' });
@@ -23,12 +25,6 @@ const Navbar = ({ setUser }) => {
         navigate('/');
         
         setUser(null);
-    };
-    
-    const refreshSearch = () => {
-        dispatch(getMovies());
-
-        navigate('/');
     };
 
     useEffect(() => {
@@ -47,7 +43,7 @@ const Navbar = ({ setUser }) => {
     return(
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Button style={{color: 'white'}} onClick={refreshSearch}>
+                <Button style={{color: 'white'}} component={Link} to='/'>
                     <TvIcon sx={{ fontSize: 50}} />
                     <Typography className={classes.heading} variant="h3" align="center">Movies</Typography>
                 </Button>
@@ -55,22 +51,12 @@ const Navbar = ({ setUser }) => {
             <Toolbar className={classes.toolbar}>
             {user?.result ? (
                 <div className={classes.profile}>
-                    <Button className={classes.userName} style={{color: 'yellow'}} size="small" component={Link} to="/myfavorites">
-                        <FavoriteIcon fontSize='medium' />
-                        <Typography variant="h6">My Favorites</Typography>
-                        <FavoriteIcon fontSize='medium' />
-                    </Button>
                     <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>
                     <Typography className={classes.userName} variant='h6'>{user.result.name}</Typography>
                     <Button variant='contained' className={classes.logout} color='secondary' onClick={logout}>Logout</Button>
                 </div>
             ) : (
                 <div className={classes.profile}>
-                    <div className={classes.userName}>
-                        <FavoriteIcon fontSize='medium' />
-                        <Typography style={{color: 'yellow'}} variant="h6">Sign in to see and add to favorites</Typography>
-                        <FavoriteIcon fontSize='medium' />
-                    </div>
                     <Button component={Link} to="/auth" variant='contained' color='primary'>Sign In</Button>
                 </div>
             )}

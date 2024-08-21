@@ -2,15 +2,20 @@ import React from 'react';
 import { Grid, CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
+import { Typography }  from '@material-ui/core';
+
 import Movie from './Movie/Movie.js';
 import useStyles from './styles.js';
 
 const Movies = () => {
     const classes = useStyles();
-    const movies = useSelector((state) => state.movies);
-    console.log(movies);
+    const { movies, isLoading } = useSelector((state) => state.movies);
+    // console.log(movies);
+
+    if(!movies.length && !isLoading) return <Typography variant='h6' style={{ color: 'white' }}>No movies found!</Typography>;
+
     return (
-        !movies.length ? <CircularProgress /> : (
+        isLoading ? <CircularProgress /> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
                 {movies.map((movie) => (
                     <Grid key={movie._id} item xs={12} sm={12} md={6} lg={4}>

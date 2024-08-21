@@ -10,8 +10,9 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const fetchMovies = () => API.get('/movies');
+export const fetchMovies = (page) => API.get(`/movies?page=${page}`);
 export const fetchMoviesBySearch = (searchQuery) => API.get(`/movies/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
+export const fetchFavoriteMovies = () => API.get('/movies/myFavorite');
 export const addToFavorite = (movieId) => API.patch('/movies/addFavorite', movieId);
 
 export const signIn = (formData) => API.post('/user/signin', formData);

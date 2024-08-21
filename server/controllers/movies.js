@@ -3,11 +3,17 @@ import mongoose from 'mongoose';
 
 // Find all movies.
 export const getMovies = async (req, res) => {
-    try {
-        // Find all movies and send movies informations to client.
-        const movies = await MoviesFormat.find();
+    const { page } = req.query;
 
-        res.status(200).json(movies);
+    try {
+        const LIMIT = 9;
+        const startIndex = (Number(page) -1) * LIMIT;
+
+        const total = await MoviesFormat.countDocuments({});
+        // Find all movies and send movies informations to client.
+        const movies = await MoviesFormat.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+
+        res.status(200).json({ data: movies, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
     } catch (error) {
         res.status(404).json({ message: error.message });   
     }
@@ -23,6 +29,21 @@ export const getMoviesBySearch = async (req, res) => {
         const movies = await MoviesFormat.find({ $or: [ { title }, { genres: { $in: tags.split(',') } } ]});
 
         res.json({ data: movies });
+    } catch (error) {
+        res.status(404).json({ message: error.message });   
+    }
+};
+
+// Find movies by favorites.
+export const getMoviesByFavorite = async (req, res) => {
+    const userId = req.userId;
+    try {
+        // Find all movies and send movies informations to client.
+        const movies = await MoviesFormat.find({ favorites: userId })
+
+        console.log(movies);
+
+        res.status(200).json({ data: movies });
     } catch (error) {
         res.status(404).json({ message: error.message });   
     }

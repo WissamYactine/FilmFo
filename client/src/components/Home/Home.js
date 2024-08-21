@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Container, Grow, Grid, Paper, AppBar, TextField, Button, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
 import { getMoviesBySearch } from '../../actions/movies.js';
+import { getMoviesByFavorite } from '../../actions/movies.js';
+
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import Movies from '../Movies/Movies.js';
 import Pagination from '../Pagination/Pagination.jsx';
@@ -15,6 +18,7 @@ function useQuery() {
 }
 
 const Home = () => {
+    const user = JSON.parse(localStorage.getItem('profile'));
     const classes = useStyles();
     const query = useQuery();
     const dispatch = useDispatch();
@@ -25,8 +29,8 @@ const Home = () => {
     const [tags, setTags] = useState([]);
 
     const searchMovie = () => {
-        if(search.trim() || tags) {
-            dispatch(getMoviesBySearch({ search, tags: tags.join(',') }))
+        if(search.trim() || tags.length) {
+            dispatch(getMoviesBySearch({ search, tags: tags.join(',') }));
             navigate(`/movies/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
         } else {
             navigate('/');
@@ -39,6 +43,12 @@ const Home = () => {
         }
     }
 
+    const toMyFavorites = () => {
+        dispatch(getMoviesByFavorite());
+
+        navigate('/myfavorites');
+    }
+
     const handleAdd = (tag) => setTags([...tags, tag]);
 
     const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
@@ -49,11 +59,28 @@ const Home = () => {
                 <Grid container justify-content="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
                         <Grid item xs={12} sm={6} md={9}>
                             <Movies />
-                            <Paper elevation={6} style={{width: '30%', flex: 'row', justifyContent: 'end'}}>
-                                <Pagination />
-                            </Paper>
+                            {(!searchQuery && !tags.length) && (
+                                <Paper className={classes.pagination} elevation={6} style={{width: '30%', flex: 'row', justifyContent: 'end'}}>
+                                    <Pagination page={page} />
+                                </Paper>
+                            )}
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
+                            {user?.result ? (
+                                <Button className={classes.userName} style={{color: 'yellow'}} size="small" onClick={toMyFavorites}>
+                                    <FavoriteIcon fontSize='medium' />
+                                    <Typography variant="h6">My Favorites</Typography>
+                                    <FavoriteIcon fontSize='medium' />
+                                </Button>
+                            ) : 
+                            (
+                                <Paper className={classes.paper} elevation={6}>
+                                    <Typography variant="h6" align="center">
+                                        Please Sign In to add and see your favorite movies.
+                                    </Typography>
+                                </Paper>
+                            )
+                            }
                             <AppBar className={classes.appBarSearch} position="static" color="inherit">
                                 <TextField 
                                 name="search" 

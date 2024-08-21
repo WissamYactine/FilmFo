@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -6,8 +6,6 @@ import ChipInput from 'material-ui-chip-input';
 
 import { getMoviesBySearch } from '../../actions/movies.js';
 import { getMoviesByFavorite } from '../../actions/movies.js';
-
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import Movies from '../Movies/Movies.js';
 import Pagination from '../Pagination/Pagination.jsx';
@@ -60,21 +58,19 @@ const Home = () => {
                         <Grid item xs={12} sm={6} md={9}>
                             <Movies />
                             {(!searchQuery && !tags.length) && (
-                                <Paper className={classes.pagination} elevation={6} style={{width: '30%', flex: 'row', justifyContent: 'end'}}>
+                                <Container style={{marginTop: '30px', backgroundColor: '#0d0d0d', width: 'fit-Content'}}>
                                     <Pagination page={page} />
-                                </Paper>
+                                </Container>
                             )}
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
                             {user?.result ? (
-                                <Button className={classes.userName} style={{color: 'yellow'}} size="small" onClick={toMyFavorites}>
-                                    <FavoriteIcon fontSize='medium' />
+                                <Button className={classes.favorite} size="small" onClick={toMyFavorites}>
                                     <Typography variant="h6">My Favorites</Typography>
-                                    <FavoriteIcon fontSize='medium' />
                                 </Button>
                             ) : 
                             (
-                                <Paper className={classes.paper} elevation={6}>
+                                <Paper className={classes.favoritePaper} elevation={6}>
                                     <Typography variant="h6" align="center">
                                         Please Sign In to add and see your favorite movies.
                                     </Typography>

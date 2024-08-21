@@ -4,9 +4,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
 
-import { getMoviesByFavorite } from '../../actions/movies.js';
-
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import TvIcon from '@mui/icons-material/Tv';
 import useStyles from './styles.js';
 
@@ -37,7 +34,7 @@ const Navbar = () => {
         }
             
         setUser(JSON.parse(localStorage.getItem('profile')));
-    }, [location]);
+    }, [location, user?.token]);
 
     
     return(

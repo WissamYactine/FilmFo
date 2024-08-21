@@ -41,8 +41,6 @@ export const getMoviesByFavorite = async (req, res) => {
         // Find all movies and send movies informations to client.
         const movies = await MoviesFormat.find({ favorites: userId })
 
-        console.log(movies);
-
         res.status(200).json({ data: movies });
     } catch (error) {
         res.status(404).json({ message: error.message });   

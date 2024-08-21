@@ -14,7 +14,7 @@ const Paginate = ({ page }) => {
 
     useEffect(() => {
         if(page) dispatch(getMovies(page));
-    }, [page]);
+    }, [page, dispatch]);
 
     return (
         <Pagination 
@@ -22,9 +22,12 @@ const Paginate = ({ page }) => {
             count={numberOfPages}
             page={Number(page) || 1}
             variant="outlined"
-            color="primary"
+            color='primary'
+            shape='rounded'
+            showFirstButton
+            showLastButton
             renderItem={(item) => (
-                <PaginationItem { ...item} component={Link} to={`/movies?page=${item.page}`} />
+                <PaginationItem style={{color: 'yellow'}} { ...item} component={Link} to={`/movies?page=${item.page}`} />
             )}
         />
     );

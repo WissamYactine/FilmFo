@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ const initialState = { firstName: '', lastName: '', email: '', password: '', con
 const Auth = () => {
     const [formData, setFormData] = useState(initialState);
     const [isSignup, setIsSignUp] = useState(false);
+    const [invalidCred, setInvalidCred] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const classes = useStyles();
@@ -32,9 +33,10 @@ const Auth = () => {
         e.preventDefault();
         
         if(isSignup) {
-            dispatch(signup(formData, navigate))
+            dispatch(signup(formData, navigate));
         } else {
-            dispatch(signin(formData, navigate))
+            dispatch(signin(formData, navigate, setInvalidCred));
+            setFormData({ ...formData, password: '' });
         }
     };
     
@@ -71,7 +73,7 @@ const Auth = () => {
                             </>
                         )}
                         <Input name='email' label='Email Address' handleChange={handleChange} type='email' />
-                        <Input name='password' label='Password' handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+                        <Input name='password' label='Password' handleChange={handleChange} value={formData.password} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} error={invalidCred} helperText={invalidCred ? 'Email or Password are incorrect!' : ''}/>
                         { isSignup && <Input name='confirmPassword' label='Repeat Password' handleChange={handleChange} type='password' />}
                 </Grid>
                 <Grid container className={classes.loginButton}>

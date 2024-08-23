@@ -1,29 +1,28 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-    gridContainer: {
-      [theme.breakpoints.down('xs')]: {
-        flexDirection: 'column-reverse',
-      },
+  appBarSearch: {
+    borderRadius: 4,
+    marginBottom: '1rem',
+    display: 'flex',
+    // padding: '16px',
+    padding: '10px',
+    color: 'white',
+  },
+  gridContainer: {
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column-reverse',
     },
-    appBarSearch: {
-      borderRadius: 4,
-      marginBottom: '1rem',
-      display: 'flex',
-      // padding: '16px',
-      padding: '10px',
-      color: 'white',
+  // moviesContainer: {
+  //   [theme.breakpoints.down('sm')]: {
+  //     flexDirection: 'column-reverse',
+  //   },
   },
     pagination: {
-      // style={{width: '30%', flex: 'row', justifyContent: 'center'}}
-      width: '30%',
-      flex: 'row',
-      justifyContent: 'end',
-      borderRadius: 4,
-      marginTop: '1rem',
-      padding: '10px',
-      // backgroundColor: 'black',
-      // color: 'yellow',
+      marginTop: '30px',
+      marginBottom: '30px',
+      backgroundColor: '#0d0d0d',
+      width: 'fit-Content',
     }, 
     favorite: {
       border: '2px solid #3f51b5',

@@ -18,7 +18,7 @@ const Movies = () => {
         isLoading ? <CircularProgress /> : (
             <Grid className={classes.mainContainer} container alignItems="stretch" spacing={3}>
                 {movies.map((movie) => (
-                    <Grid key={movie._id} item xs={12} sm={12} md={6} lg={4}>
+                    <Grid key={movie._id} item xs={12} sm={6} md={6} lg={4}>
                         <Movie movie={movie} />
                     </Grid>
                 ))}

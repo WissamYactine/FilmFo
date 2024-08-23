@@ -55,13 +55,8 @@ const Home = () => {
         <Grow in>
             <Container maxWidth='xl'>
                 <Grid container justify-content="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
-                        <Grid item xs={12} sm={6} md={9}>
+                        <Grid item xs={12} sm={12} md={9}>
                             <Movies />
-                            {(!searchQuery && !tags.length) && (
-                                <Container style={{marginTop: '30px', backgroundColor: '#0d0d0d', width: 'fit-Content'}}>
-                                    <Pagination page={page} />
-                                </Container>
-                            )}
                         </Grid>
                         <Grid item xs={12} sm={6} md={3}>
                             {user?.result ? (
@@ -89,7 +84,7 @@ const Home = () => {
                                 />
                             </AppBar>
                             <AppBar className={classes.appBarSearch} position="static" color="inherit">
-                                <ChipInput 
+                                <ChipInput
                                     style={{ margin: '10px 0' }}
                                     value={tags}
                                     onAdd={handleAdd}
@@ -101,6 +96,11 @@ const Home = () => {
                             </AppBar>
                         </Grid>
                 </Grid>
+                        {(!searchQuery && !tags.length) && (
+                                <Container className={classes.pagination}>
+                                    <Pagination page={page} />
+                                </Container>
+                            )}
             </Container>
         </Grow>
     );

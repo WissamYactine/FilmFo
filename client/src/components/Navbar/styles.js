@@ -1,25 +1,3 @@
-// import { makeStyles } from '@material-ui/core/styles';
-
-// export default makeStyles(() => ({
-//   appBar: {
-//     borderRadius: 15,
-//     margin: '30px 0',
-//     padding: '0px 50px 0px 50px',
-//     display: 'flex',
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     backgroundColor: '#000022',
-//   },
-//   heading: {
-//     color: 'white',
-//     marginLeft: '10px'
-// },
-//   image: {
-//     marginLeft: '15px',
-//   },
-// }));
-
 import { makeStyles } from '@material-ui/core/styles';
 import { deepPurple } from '@material-ui/core/colors';
 
@@ -32,8 +10,10 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
-    // backgroundColor: '#000022',
     backgroundColor: '#161616',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   heading: {
     color: 'white',
@@ -47,11 +27,19 @@ export default makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     width: 'fit-content',
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+    },
   },
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
     width: 'fit-content',
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+      marginTop: 20,
+      justifyContent: 'center',
+    },
   },
   userName: {
     display: 'flex',

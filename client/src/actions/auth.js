@@ -1,7 +1,7 @@
 import { AUTH } from '../constants/actionTypes';
 import * as api from '../api';
 
-export const signin = (formData, navigate, setInvalidCred) => async (dispatch) => {
+export const signin = (formData, navigate, setInvalidCred, setFormData) => async (dispatch) => {
     try {
         const { data } = await api.signIn(formData);
 
@@ -10,12 +10,13 @@ export const signin = (formData, navigate, setInvalidCred) => async (dispatch) =
         navigate('/')
     } catch (error) {
         setInvalidCred(true);
-        // console.log(error);
+        setFormData({ ...formData, password: '' });
+        console.log(error);
     }
 };
 
 
-export const signup = (formData, navigate, setInvalidCred) => async (dispatch) => {
+export const signup = (formData, navigate, setInvalidCred, setFormData) => async (dispatch) => {
     try {
         const { data } = await api.signUp(formData);
 
@@ -23,6 +24,8 @@ export const signup = (formData, navigate, setInvalidCred) => async (dispatch) =
         
         navigate('/');
     } catch (error) {
+        setInvalidCred(true);
+        setFormData({ ...formData, password: '', confirmPassword: '' });
         console.log(error);
     }
 };

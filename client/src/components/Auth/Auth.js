@@ -33,10 +33,9 @@ const Auth = () => {
         e.preventDefault();
         
         if(isSignup) {
-            dispatch(signup(formData, navigate));
+            dispatch(signup(formData, navigate, setInvalidCred, setFormData));
         } else {
-            dispatch(signin(formData, navigate, setInvalidCred));
-            setFormData({ ...formData, password: '' });
+            dispatch(signin(formData, navigate, setInvalidCred, setFormData));
         }
     };
     
@@ -66,15 +65,46 @@ const Auth = () => {
             <form className={classes.form} onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                     {
-                        isSignup && (
+                        isSignup ? (
                             <>
                                 <Input name='firstName' label='First Name' handleChange={handleChange} autoFocus half />
                                 <Input name='lastName' label='Last Name' handleChange={handleChange} half />
+                                <Input name='email' label='Email Address' handleChange={handleChange} type='email' />
+                                <Input 
+                                name='password'
+                                label='Password'
+                                handleChange={handleChange}
+                                value={formData.password}
+                                type={showPassword ? 'text' : 'password'}
+                                handleShowPassword={handleShowPassword}
+                                error={invalidCred}
+                                helperText={invalidCred ? "Passwords don't match!" : ''}
+                                />
+                                <Input
+                                name='confirmPassword'
+                                label='Repeat Password'
+                                handleChange={handleChange}
+                                type='password'
+                                value={formData.confirmPassword}
+                                error={invalidCred}
+                                helperText={invalidCred ? "Passwords don't match!" : ''} />
                             </>
-                        )}
-                        <Input name='email' label='Email Address' handleChange={handleChange} type='email' />
-                        <Input name='password' label='Password' handleChange={handleChange} value={formData.password} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} error={invalidCred} helperText={invalidCred ? 'Email or Password are incorrect!' : ''}/>
-                        { isSignup && <Input name='confirmPassword' label='Repeat Password' handleChange={handleChange} type='password' />}
+                        ) :
+                        (
+                            <>
+                                <Input name='email' label='Email Address' handleChange={handleChange} type='email' />
+                                <Input
+                                name='password'
+                                label='Password'
+                                handleChange={handleChange}
+                                value={formData.password}
+                                type={showPassword ? 'text' : 'password'}
+                                handleShowPassword={handleShowPassword}
+                                error={invalidCred}
+                                helperText={invalidCred ? "Email or password is incorrect!" : ''}/>
+                            </>
+                        )
+                        }
                 </Grid>
                 <Grid container className={classes.loginButton}>
                     <GoogleLogin

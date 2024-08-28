@@ -53,8 +53,10 @@ const Home = () => {
 
     return (
         <Grow in>
+        <Container>
+
             <Container maxWidth='xl'>
-                <Grid container justify-content="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
+                <Grid container  justify-content="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
                         <Grid item xs={12} sm={12} md={9}>
                             <Movies />
                         </Grid>
@@ -96,12 +98,16 @@ const Home = () => {
                             </AppBar>
                         </Grid>
                 </Grid>
-                        {(!searchQuery && !tags.length) && (
-                                <Container className={classes.pagination}>
-                                    <Pagination page={page} />
-                                </Container>
-                            )}
             </Container>
+            <Container>
+                {(!searchQuery && !tags.length) && (
+                    <Container className={classes.pagination}>
+                        <Pagination page={page} />
+                    </Container>
+                )}
+            </Container>
+        </Container>
+            
         </Grow>
     );
 };

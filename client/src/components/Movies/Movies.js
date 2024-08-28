@@ -10,7 +10,6 @@ import useStyles from './styles.js';
 const Movies = () => {
     const classes = useStyles();
     const { movies, isLoading } = useSelector((state) => state.movies);
-    // console.log(movies);
 
     if(!movies.length && !isLoading) return <Typography variant='h6' style={{ color: 'white' }}>No movies found!</Typography>;
 

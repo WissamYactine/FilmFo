@@ -5,7 +5,6 @@ export default makeStyles((theme) => ({
     borderRadius: 4,
     marginBottom: '1rem',
     display: 'flex',
-    // padding: '16px',
     padding: '10px',
     color: 'white',
   },
@@ -13,16 +12,15 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column-reverse',
     },
-  // moviesContainer: {
-  //   [theme.breakpoints.down('sm')]: {
-  //     flexDirection: 'column-reverse',
-  //   },
   },
     pagination: {
       marginTop: '30px',
       marginBottom: '30px',
       backgroundColor: '#0d0d0d',
       width: 'fit-Content',
+      [theme.breakpoints.down('md')]: {
+        marginTop: '80px',
+      },
     }, 
     favorite: {
       border: '2px solid #3f51b5',

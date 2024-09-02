@@ -7,10 +7,11 @@ export const getMovies = async (req, res) => {
 
     try {
         const LIMIT = 9;
+
         const startIndex = (Number(page) -1) * LIMIT;
 
         const total = await MoviesFormat.countDocuments({});
-        // Find all movies and send movies informations to client.
+
         const movies = await MoviesFormat.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
 
         res.status(200).json({ data: movies, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
@@ -37,8 +38,8 @@ export const getMoviesBySearch = async (req, res) => {
 // Find movies by favorites.
 export const getMoviesByFavorite = async (req, res) => {
     const userId = req.userId;
+
     try {
-        // Find all movies and send movies informations to client.
         const movies = await MoviesFormat.find({ favorites: userId })
 
         res.status(200).json({ data: movies });
@@ -80,7 +81,7 @@ export const addToFavorites = async (req, res) => {
 
 
 
-// The following methods are only accesible and used by admin.
+// The following methods were only used during development and are not accessible by users.
 
 
 // Create a movie.

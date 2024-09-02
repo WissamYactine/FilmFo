@@ -7,6 +7,7 @@ import Home from './components/Home/Home.js';
 import Auth from './components/Auth/Auth.js';
 import Favorites from './components/Favorites/Favorites.js';
 
+// Creating the different URLs paths for each location in the web browser.
 const App = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
     
@@ -26,4 +27,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default App; 

@@ -20,18 +20,10 @@ router.patch("/addFavorite", auth, addToFavorites);
 
 
 
+// Routes bellow were used during development and are not accesible to users.
 
 
-
-
-
-
-
-
-// Routes unaccesible to users.
-
-
-// The following POST methods are used by admin to add movies to database.
+// The following POST methods are used by me to add movies to database.
 // Users will not have the posibility to add to movie database. 
 
 // Create one new movie to database: Only used by admin not users.

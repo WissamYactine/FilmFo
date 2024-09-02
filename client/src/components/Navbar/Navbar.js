@@ -10,12 +10,13 @@ import useStyles from './styles.js';
 
 const Navbar = () => {
     const dispatch = useDispatch();
-    const location = useLocation();
     const navigate = useNavigate();
+    const location = useLocation();
     const classes = useStyles();
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     
+    // Logout user and redirect to home page.
     const logout = () => {
         dispatch({ type: 'LOGOUT' });
 
@@ -24,6 +25,7 @@ const Navbar = () => {
         setUser(null);
     };
 
+    // Check token expiry. Logout user if token is expired.
     useEffect(() => {
         const token = user?.token;
 

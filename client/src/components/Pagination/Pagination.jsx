@@ -8,14 +8,17 @@ import { getMovies } from '../../actions/movies.js';
 import useStyles from './syles.js';
 
 const Paginate = ({ page }) => {
+    // Retrieving number of pages from state.
     const { numberOfPages } = useSelector((state) => state.movies);
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    // Get movies for the specific page.
     useEffect(() => {
         if(page) dispatch(getMovies(page));
     }, [page, dispatch]);
 
+    // return Pagination.
     return (
         <Pagination 
             classes={{ ul: classes.ul }}

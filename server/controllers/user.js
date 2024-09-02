@@ -6,7 +6,7 @@ import usersFormat from '../models/user.js';
 
 dotenv.config();
 
-
+// Verifying credentials and signing in if user exists. 
 export const signin = async (req, res) => {
     const { email, password } = req.body;
 
@@ -27,6 +27,7 @@ export const signin = async (req, res) => {
     }
 }
 
+// Verify exixsting user. If not, create new user account.
 export const signup = async (req, res) => {
     const {email, password, confirmPassword, firstName, lastName} = req.body;
 

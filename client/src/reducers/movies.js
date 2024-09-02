@@ -1,6 +1,6 @@
 import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_BY_FAVORITE, ADD_FAVORITE, START_LOADING, END_LOADING } from "../constants/actionTypes";
 
-// movies is the state.
+
 const reducer = (state = { isLoding: true, movies: [] }, action) => {
     switch (action.type) {
         case FETCH_ALL:

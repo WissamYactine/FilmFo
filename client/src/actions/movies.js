@@ -1,6 +1,7 @@
 import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_BY_FAVORITE, ADD_FAVORITE, START_LOADING, END_LOADING } from '../constants/actionTypes';
 import * as api from '../api';
 
+// Get movies for the current page users are located in.
 export const getMovies = (page) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
@@ -15,6 +16,7 @@ export const getMovies = (page) => async (dispatch) => {
     }
 }
 
+// Get movies through search.
 export const getMoviesBySearch = (searchQuery) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
@@ -29,6 +31,7 @@ export const getMoviesBySearch = (searchQuery) => async (dispatch) => {
     }
 }
 
+// Sort movies by favorites.
 export const getMoviesByFavorite = () => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
@@ -43,6 +46,7 @@ export const getMoviesByFavorite = () => async (dispatch) => {
     }
 }
 
+// Add movie to favorite.
 export const addFavorite = (movieId) => async (dispatch) => {
     try {
         const { data } = await api.addToFavorite(movieId);

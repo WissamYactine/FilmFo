@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Check if user is allowed to execute the action requested.
 const auth = async (req, res, next) => {
     try {
         const token = req.headers.authorization.split(" ")[1];

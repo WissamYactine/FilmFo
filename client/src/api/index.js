@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+// Creating base URL for all api calls.
 const API = axios.create({ baseURL: "http://localhost:5000" });
 
+// Intercept every request and add user token in the request's header authorization before returning it.
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {
         req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;

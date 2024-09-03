@@ -6,17 +6,18 @@ import StarsIcon from '@mui/icons-material/Stars';
 import CloseIcon from '@mui/icons-material/Close';
 import useStyles from './styles';
 
-
 import { useDispatch } from 'react-redux';
 import { addFavorite } from '../../../actions/movies';
 import MovieDetails from '../MovieDetails/MovieDetails';
 
+
 const Movie = ({ movie }) => {
-    const dispatch = useDispatch();
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [open, setPopOpen] = React.useState(false);
     const user = JSON.parse(localStorage.getItem('profile'));
 
+    // Show Favorite button on movies if user is logged in. Favorite icon filled if movie was added to favorite and empty if not.  
     const Favorite = () => {
         if(user) {
             return movie.favorites.find((like) => like === (user?.result?.sub || user?.result?._id))
@@ -32,11 +33,13 @@ const Movie = ({ movie }) => {
         }
     };
 
+    // Add movie to favorite list. 
     const handleChildElementClick = (e) => {
         e.stopPropagation();
         dispatch(addFavorite({ movieId: movie._id }));
     };
     
+    // Close popover if user click outside of popover.
     const handleClick = (e) => {
         if(open) {
             const popoverElement = document.querySelector(".popoverCard");
@@ -46,6 +49,7 @@ const Movie = ({ movie }) => {
         }
     };
     
+    // Close popover if user press 'escape' key.
     const handleKeyDown = (e) => {
         if(open) {
             if(e.key === 'Escape') {

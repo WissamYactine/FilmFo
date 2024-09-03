@@ -6,9 +6,9 @@ import Movie from '../Movies/Movie/Movie.js';
 import useStyles from './styles.js'
 
 const Favorite = () => {
-    const { movies, isLoading } = useSelector((state) => state.movies);
     const classes = useStyles();
     const user = JSON.parse(localStorage.getItem('profile'));
+    const { movies, isLoading } = useSelector((state) => state.movies);
 
     if(!movies.length && !isLoading) return <Typography variant='h6' style={{ color: 'white' }}>No movies added to favorties</Typography>;
 

@@ -21,12 +21,6 @@ export default makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  googleButton: {
-    marginBottom: theme.spacing(2),
-  },
   loginButton: {
     display: 'flex',
     flexDirection: 'row', 

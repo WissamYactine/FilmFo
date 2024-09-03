@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
@@ -13,22 +13,24 @@ import Input from './Input';
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
 const Auth = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState(initialState);
     const [isSignup, setIsSignUp] = useState(false);
     const [invalidCred, setInvalidCred] = useState(false);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const classes = useStyles();
     
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => setShowPassword(!showPassword);
 
+    // Switch from sing in form to sign up form.
     const switchMode = () => {
         setFormData(initialState);
         setIsSignUp((prevIsSignUp) => !prevIsSignUp);
         setShowPassword(false);
     };
     
+    // Sign in or Sign up user with our own authentication form. 
     const handleSubmit = (e) => {
         e.preventDefault();
         
@@ -39,6 +41,7 @@ const Auth = () => {
         }
     };
     
+    // Sign in user successfully with google. 
     const googleSuccess = async (res) => {
         const result = jwtDecode(res?.credential);
         
@@ -51,8 +54,10 @@ const Auth = () => {
         }
     };
     
+    // Sign in error with google.
     const googleFailure = () => alert("Google Sign In was unsuccessful. Try Again Later");
     
+    // Update form from user's entry.
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     return (

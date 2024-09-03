@@ -11,35 +11,21 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     padding: '10px 50px',
     backgroundColor: '#161616',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-    },
   },
   heading: {
     color: 'white',
     marginLeft: '10px',
     textDecoration: 'none',
   },
-  image: {
-    marginLeft: '15px',
-  },
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
     width: 'fit-content',
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto',
-    },
   },
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
     width: 'fit-content',
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto',
-      marginTop: 20,
-      justifyContent: 'center',
-    },
   },
   userName: {
     display: 'flex',
@@ -55,5 +41,18 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+  },
+  [theme.breakpoints.down('sm')]: {
+    appBar: {
+      flexDirection: 'column',
+    },
+    profile: {
+      width: 'auto',
+      marginTop: 20,
+      justifyContent: 'center',
+    },
+    toolbar: {
+      width: 'auto',
+    },
   },
 }));

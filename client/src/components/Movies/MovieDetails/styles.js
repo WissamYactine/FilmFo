@@ -49,28 +49,13 @@ export default makeStyles((theme) => ({
     margin: '0 0 0 5px',
     
   },
-  favorite: {
-    position: 'absolute',
-    bottom: '50px',
-    right: '20px',
-    justifyContent: 'start',
-    color: 'yellow',
-    
-  },
   [theme.breakpoints.down('sm')]: {
     div: {
-      display: 'flex',
       flexDirection: 'column',
     },
     media: {
       width: '290px',
       height: '400px',
-    },
-    favorite: {
-      position: 'relative',
-      right: '0',
-      bottom: '213px',
-      float: 'right',
     },
     title: {
       fontSize: '35px',

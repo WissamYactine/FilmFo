@@ -17,9 +17,13 @@ app.use(cors());
 app.use("/movies", moviesRoutes);
 app.use("/user", userRoutes);
 
-app.get('/', (res, req) => {
-    res.send('APP IS RUNNING.');
-})
+try {
+    app.get('/', (req, res) => {
+        res.send('APP IS RUNNING.');
+    })
+} catch (error) {
+    console.log(error);
+}
 
 const PORT = process.env.PORT || 5000;
 

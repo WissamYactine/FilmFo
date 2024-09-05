@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Creating base URL for all api calls.
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({ baseURL: "https://movie-rating-app-server.vercel.app/" });
 
 // Intercept every request and add user token in the request's header authorization before returning it.
 API.interceptors.request.use((req) => {

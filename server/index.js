@@ -22,7 +22,7 @@ try {
         res.send('APP IS RUNNING.');
     })
 } catch (error) {
-    console.log(error);
+    res.status(500).json({ message: error.message });
 }
 
 const PORT = process.env.PORT || 5000;

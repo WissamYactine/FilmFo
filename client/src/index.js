@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDom from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { legacy_createStore, applyMiddleware, compose } from 'redux';
 import { thunk } from 'redux-thunk';
@@ -11,13 +11,13 @@ import './index.css';
 
 
 const store = legacy_createStore(reducers, compose(applyMiddleware(thunk)));
+const root = ReactDom.createRoot(document.getElementById('root'));
 
-ReactDom.render(
+root.render(
     <Provider store={store}>
         <GoogleOAuthProvider clientId='615943721081-5b1g42tp8jjcdgu0vj28o355jrpr0ied.apps.googleusercontent.com'>
             <App/>
         </GoogleOAuthProvider>
-    </Provider>,
-    document.getElementById("root")
+    </Provider>
 );
 

@@ -24,10 +24,10 @@ const reducer = (state = { isLoding: true, movies: [] }, action) => {
             }
 
         case START_LOADING:
-            return { ...state, isLoding: true }
+            return { ...state, isLoading: true }
 
         case END_LOADING:
-            return { ...state, isLoding: false }
+            return { ...state, isLoading: false }
 
         default:
             return state;
